@@ -13,7 +13,7 @@ import com.stang.app.contactapp.R;
 
 public class MypageActivity extends AppCompatActivity implements View.OnClickListener {
         ImageView ivProfile;
-        TextView tvId, tvName, tvPhone, tvAddr;
+        TextView tvId, tvName, tvEmail, tvPhone, tvAddr;
         Button btAlbum, btSchedule, btEdit, btDel, btGoogle, btNaver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

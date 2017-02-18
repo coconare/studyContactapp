@@ -13,7 +13,7 @@ import com.stang.app.contactapp.R;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView ivProfile;
-    TextView tvId, tvName, tvPhone, tvAddr;
+    TextView tvId, tvName, tvEmail, tvPhone, tvAddr;
     Button btCall, btMessge, btMap, btDel, btEdit, btList;
     String id;
     @Override

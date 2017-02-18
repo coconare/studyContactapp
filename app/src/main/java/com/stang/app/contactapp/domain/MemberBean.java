@@ -4,7 +4,7 @@ package com.stang.app.contactapp.domain;
  * Created by hb2012 on 2017-02-04.
  */
 public class MemberBean {
-    String id, pass, name, phone, addr, profile;
+    String id, pass, name, email, phone, addr, profile;
 
     public String getId() {
         return id;
@@ -28,6 +28,14 @@ public class MemberBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhone() {

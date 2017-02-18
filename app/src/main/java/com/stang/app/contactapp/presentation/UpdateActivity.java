@@ -15,7 +15,7 @@ import com.stang.app.contactapp.R;
 public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView ivProfile;
     TextView tvId;
-    EditText etName, etPhone, etAddr;
+    EditText etName, etEmail, etPhone, etAddr;
     Button btUpdate, btCancel;
     String id;
     @Override
@@ -25,6 +25,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = this.getIntent();
         id = intent.getExtras().getString("id");
         etName = (EditText) findViewById(R.id.etName);
+        etEmail = (EditText) findViewById(R.id.etEmail);
         etPhone = (EditText) findViewById(R.id.etPhone);
         etAddr = (EditText) findViewById(R.id.etAddr);
         btUpdate = (Button) findViewById(R.id.btUpdate);
