@@ -35,16 +35,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberBean readOen(MemberBean bean) {
-        return null;
+        return memberDao.seleteOne(bean);
     }
 
     @Override
     public ArrayList<MemberBean> readSome(String keyword) {
-        return null;
+        return memberDao.selectSome(keyword);
     }
 
     @Override
     public ArrayList<MemberBean> list() {
-        return null;
+        return memberDao.selectAll();
     }
 }

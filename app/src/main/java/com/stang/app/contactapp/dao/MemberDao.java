@@ -1,8 +1,10 @@
 package com.stang.app.contactapp.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.stang.app.contactapp.domain.MemberBean;
 
@@ -38,6 +40,7 @@ public class MemberDao extends SQLiteOpenHelper{
                 "    id TEXT,\n" +
                 "    FOREIGN KEY(id) REFERENCES Member(id)\n" +
                 ");\n");
+/*
         db.execSQL("INSERT INTO Member(id,pass,name,email,phone,addr,profile)\n" +
                 "VALUES('hong','1','홍길동','hong@test.com','010-1234-5678','서울','default');");
         db.execSQL("INSERT INTO Member(id,pass,name,email,phone,addr,profile)\n" +
@@ -48,6 +51,7 @@ public class MemberDao extends SQLiteOpenHelper{
                 "VALUES('park','1','박지성','park@test.com','010-1234-5678','전주','default');");
         db.execSQL("INSERT INTO Member(id,pass,name,email,phone,addr,profile)\n" +
                 "VALUES('yoo','1','유비','yoo@test.com','010-1234-5678','서울','default');");
+*/
 
     }
 
@@ -81,6 +85,21 @@ public class MemberDao extends SQLiteOpenHelper{
         MemberBean member = new MemberBean();
         String sql = String.format("SELECT id, pass, name, email, phone, addr, profile " +
                 "FROM member WHERE id='%s';", bean.getId());
+        Log.d("seleteOne SQL : ", sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToNext()){
+            Log.d("RESULT : ", cursor.getString(0));
+            member.setId(cursor.getString(0));
+            member.setPass(cursor.getString(1));
+            member.setName(cursor.getString(2));
+            member.setEmail(cursor.getString(3));
+            member.setPhone(cursor.getString(4));
+            member.setAddr(cursor.getString(5));
+            member.setProfile(cursor.getString(6));
+        }else{
+            member.setId("FAIL");
+        }
         return  member;
     }
 
@@ -96,6 +115,14 @@ public class MemberDao extends SQLiteOpenHelper{
     public ArrayList<MemberBean> selectAll(){
         ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
         String sql = "SELECT id, pass, name, email, phone, addr, profile FROM member;";
+        Log.d("selectAll SQL : ", sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor.moveToNext()){
+
+        }else{
+
+        }
         return  memberList;
     }
 }
