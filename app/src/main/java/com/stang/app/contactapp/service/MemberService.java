@@ -20,6 +20,8 @@ public interface MemberService {
     // Read ONE
     public MemberBean readOen(MemberBean bean);
 
+    public boolean login(MemberBean bean);
+
     // Read SOME
     public ArrayList<MemberBean> readSome(String keyword);
 

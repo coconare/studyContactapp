@@ -49,10 +49,9 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 memberBean.setId(id);
                 memberBean.setPass(pwd);
-                MemberBean selectMember = memberService.readOen(memberBean);
-                if(!"FAIL".equals(selectMember.getId()) && memberBean.getPass().equals(selectMember.getPass())){
-                    Toast.makeText(SigninActivity.this, "GO DETAIL", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SigninActivity.this, DetailActivity.class));
+                if(memberService.login(memberBean)){
+                    Toast.makeText(SigninActivity.this, "GO LIST", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SigninActivity.this, ListActivity.class));
                 }else{
                     Toast.makeText(SigninActivity.this, "로그인이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
                 }

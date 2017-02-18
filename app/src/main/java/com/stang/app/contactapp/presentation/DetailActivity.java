@@ -10,19 +10,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stang.app.contactapp.R;
+import com.stang.app.contactapp.domain.MemberBean;
+import com.stang.app.contactapp.service.MemberService;
+import com.stang.app.contactapp.service.impl.MemberServiceImpl;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView ivProfile;
     TextView tvId, tvName, tvEmail, tvPhone, tvAddr;
     Button btCall, btMessge, btMap, btDel, btEdit, btList;
     String id;
+    MemberService memberService;
+    MemberBean memberBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        memberService = new MemberServiceImpl(this.getApplicationContext());
         Intent intent = this.getIntent();
-//        id = intent.getExtras().getString("id");
-
+        id = intent.getExtras().getString("id");
+        memberBean = new MemberBean();
+        memberBean.setId(id);
+        memberBean = memberService.readOen(memberBean);
+        tvId = (TextView) findViewById(R.id.tvId);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvEmail = (TextView) findViewById(R.id.tvEmail);
+        tvPhone = (TextView) findViewById(R.id.tvPhone);
+        tvAddr = (TextView) findViewById(R.id.tvAddr);
+        ivProfile = (ImageView) findViewById(R.id.ivProfile);
+        tvId.setText(memberBean.getId());
+        tvName.setText(memberBean.getName());
+        tvEmail.setText(memberBean.getEmail());
+        tvPhone.setText(memberBean.getPhone());
+        tvAddr.setText(memberBean.getAddr());
         btCall = (Button) findViewById(R.id.btCall);
         btMessge = (Button) findViewById(R.id.btMessge);
         btMap = (Button) findViewById(R.id.btMap);

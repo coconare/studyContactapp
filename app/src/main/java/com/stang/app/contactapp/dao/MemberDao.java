@@ -118,11 +118,22 @@ public class MemberDao extends SQLiteOpenHelper{
         Log.d("selectAll SQL : ", sql);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
-        if(cursor.moveToNext()){
-
-        }else{
-
+        if(cursor != null){
+            Log.d("selectAll", "Exist !!");
+            cursor.moveToFirst();
         }
+        do {
+           MemberBean member = new MemberBean();
+            member.setId(cursor.getString(0));
+            member.setPass(cursor.getString(1));
+            member.setName(cursor.getString(2));
+            member.setEmail(cursor.getString(3));
+            member.setPhone(cursor.getString(4));
+            member.setAddr(cursor.getString(5));
+            member.setProfile(cursor.getString(6));
+            memberList.add(member);
+        } while (cursor.moveToNext());
+        Log.d("selectAll Count : ", String.valueOf(memberList.size()));
         return  memberList;
     }
 }

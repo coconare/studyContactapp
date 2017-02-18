@@ -39,6 +39,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public boolean login(MemberBean bean) {
+        boolean flag = false;
+        MemberBean selectMember = memberDao.seleteOne(bean);
+        return (!"FAIL".equals(selectMember.getId()) && bean.getPass().equals(selectMember.getPass()));
+    }
+
+    @Override
     public ArrayList<MemberBean> readSome(String keyword) {
         return memberDao.selectSome(keyword);
     }
