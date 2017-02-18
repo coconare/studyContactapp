@@ -26,22 +26,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         memberService = new MemberServiceImpl(this.getApplicationContext());
-        Intent intent = this.getIntent();
-        id = intent.getExtras().getString("id");
         memberBean = new MemberBean();
-        memberBean.setId(id);
-        memberBean = memberService.readOen(memberBean);
         tvId = (TextView) findViewById(R.id.tvId);
         tvName = (TextView) findViewById(R.id.tvName);
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvPhone = (TextView) findViewById(R.id.tvPhone);
         tvAddr = (TextView) findViewById(R.id.tvAddr);
         ivProfile = (ImageView) findViewById(R.id.ivProfile);
-        tvId.setText(memberBean.getId());
-        tvName.setText(memberBean.getName());
-        tvEmail.setText(memberBean.getEmail());
-        tvPhone.setText(memberBean.getPhone());
-        tvAddr.setText(memberBean.getAddr());
+        // 버튼
         btCall = (Button) findViewById(R.id.btCall);
         btMessge = (Button) findViewById(R.id.btMessge);
         btMap = (Button) findViewById(R.id.btMap);
@@ -54,6 +46,16 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         btDel.setOnClickListener(this);
         btEdit.setOnClickListener(this);
         btList.setOnClickListener(this);
+        // 상세화면 꾸미기
+        Intent intent = this.getIntent();
+        id = intent.getExtras().getString("id");
+        memberBean.setId(id);
+        memberBean = memberService.readOen(memberBean);
+        tvId.setText(memberBean.getId());
+        tvName.setText(memberBean.getName());
+        tvEmail.setText(memberBean.getEmail());
+        tvPhone.setText(memberBean.getPhone());
+        tvAddr.setText(memberBean.getAddr());
     }
 
     @Override
