@@ -79,7 +79,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("Long Click : ", "true");
-                                memberService.delete(member);
+                                memberService.delete(memberBean);
                                 Intent intent = new Intent(DetailActivity.this, ListActivity.class);
                                 startActivity(intent);
                             }
