@@ -11,23 +11,43 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stang.app.contactapp.R;
+import com.stang.app.contactapp.domain.MemberBean;
+import com.stang.app.contactapp.service.MemberService;
+import com.stang.app.contactapp.service.impl.MemberServiceImpl;
 
 public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView ivProfile;
     TextView tvId;
-    EditText etName, etEmail, etPhone, etAddr;
+    EditText etPwd, etName, etEmail, etPhone, etAddr;
     Button btUpdate, btCancel;
-    String id;
+    MemberService memberService;
+    MemberBean memberBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        Intent intent = this.getIntent();
-        id = intent.getExtras().getString("id");
+        memberService = new MemberServiceImpl(this.getApplicationContext());
+        memberBean = new MemberBean();
+        tvId = (TextView) findViewById(R.id.tvId);
+        etPwd = (EditText) findViewById(R.id.etPwd);
         etName = (EditText) findViewById(R.id.etName);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPhone = (EditText) findViewById(R.id.etPhone);
         etAddr = (EditText) findViewById(R.id.etAddr);
+        ivProfile = (ImageView) findViewById(R.id.ivProfile);
+
+        // 상세화면 꾸미기
+        Intent intent = this.getIntent();
+        String id = intent.getExtras().getString("id");
+        memberBean.setId(id);
+        memberBean = memberService.readOen(memberBean);
+        tvId.setText(memberBean.getId());
+        etPwd.setText(memberBean.getPass());
+        etName.setText(memberBean.getName());
+        etEmail.setText(memberBean.getEmail());
+        etPhone.setText(memberBean.getPhone());
+        etAddr.setText(memberBean.getAddr());
+
         btUpdate = (Button) findViewById(R.id.btUpdate);
         btCancel = (Button) findViewById(R.id.btCancel);
         btUpdate.setOnClickListener(this);
@@ -38,6 +58,16 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btUpdate :
+                memberBean.setId(tvId.getText().toString());
+                memberBean.setPass(etPwd.getText().toString());
+                memberBean.setName(etName.getText().toString());
+                memberBean.setEmail(etEmail.getText().toString());
+                memberBean.setPhone(etPhone.getText().toString());
+                memberBean.setAddr(etAddr.getText().toString());
+                memberBean.setProfile("defult_icon");
+                memberService.update(memberBean);
+                Toast.makeText(UpdateActivity.this, "ON UPDATE", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UpdateActivity.this, ListActivity.class));
                 break;
             case R.id.btCancel :
                 Toast.makeText(UpdateActivity.this, "GO BACK", Toast.LENGTH_SHORT);

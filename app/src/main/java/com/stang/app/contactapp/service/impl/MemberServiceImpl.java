@@ -20,17 +20,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void add(MemberBean bean) {
-
+        memberDao.add(bean);
     }
 
     @Override
     public void update(MemberBean bean) {
-
+        memberDao.update(bean);
     }
 
     @Override
     public void delete(MemberBean bean) {
-
+        memberDao.delete(bean);
     }
 
     @Override

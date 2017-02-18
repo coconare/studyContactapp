@@ -1,8 +1,11 @@
 package com.stang.app.contactapp.presentation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,9 +21,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     ImageView ivProfile;
     TextView tvId, tvName, tvEmail, tvPhone, tvAddr;
     Button btCall, btMessge, btMap, btDel, btEdit, btList;
-    String id;
     MemberService memberService;
     MemberBean memberBean;
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tvEmail.setText(memberBean.getEmail());
         tvPhone.setText(memberBean.getPhone());
         tvAddr.setText(memberBean.getAddr());
+        ivProfile.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(this.getPackageName()+":drawable/"+"defult_icon", null, null)));
     }
 
     @Override
@@ -68,10 +72,27 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btMap :
                 break;
             case R.id.btDel :
+                new AlertDialog.Builder(DetailActivity.this)
+                        .setTitle("삭제?")
+                        .setMessage("삭제하시겠습니까?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("Long Click : ", "true");
+                                memberService.delete(member);
+                                Intent intent = new Intent(DetailActivity.this, ListActivity.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
                 break;
             case R.id.btEdit :
                 Intent intent = new Intent(DetailActivity.this, UpdateActivity.class);
-                intent.putExtra("id", "hyun");
+                intent.putExtra("id", id);
                 Toast.makeText(DetailActivity.this, "Go EDIT", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 break;

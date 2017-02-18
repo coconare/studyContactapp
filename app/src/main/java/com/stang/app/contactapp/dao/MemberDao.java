@@ -65,6 +65,9 @@ public class MemberDao extends SQLiteOpenHelper{
         String sql = String.format("INSERT INTO member (id, pass, name, email, phone, addr, profile) VALUES " +
                 "('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
                 bean.getId(), bean.getPass(), bean.getName(), bean.getEmail(), bean.getPhone(), bean.getAddr(), bean.getProfile());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
     }
 
     // Update
@@ -73,11 +76,17 @@ public class MemberDao extends SQLiteOpenHelper{
                 "pass='%s', email='%s', phone='%s', addr='%s', profile='%s' " +
                 "WHERE id='%s';",
                 bean.getPass(), bean.getEmail(), bean.getPhone(), bean.getAddr(), bean.getProfile(), bean.getId());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
     }
 
     // Delete
     public void delete(MemberBean bean){
         String sql = String.format("DELETE FROM member WHERE id='%s'", bean.getId());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
     }
 
     // Read ONE

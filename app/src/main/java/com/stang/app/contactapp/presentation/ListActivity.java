@@ -1,8 +1,11 @@
 package com.stang.app.contactapp.presentation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,8 +45,28 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         });
         lvList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int i, long l) {
+                Log.d("Long Click : ", "true");
+                Object o = lvList.getItemAtPosition(i);
+                final MemberBean member = (MemberBean) o;
+                new AlertDialog.Builder(ListActivity.this)
+                        .setTitle("삭제?")
+                        .setMessage("삭제하시겠습니까?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("Long Click : ", "true");
+                                memberService.delete(member);
+                                Intent intent = new Intent(ListActivity.this, ListActivity.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+                return true;
             }
         });
 

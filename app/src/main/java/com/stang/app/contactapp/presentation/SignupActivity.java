@@ -1,10 +1,12 @@
 package com.stang.app.contactapp.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.stang.app.contactapp.R;
 import com.stang.app.contactapp.domain.MemberBean;
@@ -44,8 +46,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 memberBean.setEmail(etEmail.getText().toString());
                 memberBean.setPhone(etPhone.getText().toString());
                 memberBean.setAddr(etAddr.getText().toString());
-                memberBean.setProfile("");
+                memberBean.setProfile("defult_icon");
                 memberService.add(memberBean);
+                Toast.makeText(SignupActivity.this, "ON ADD", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SignupActivity.this, SigninActivity.class));
                 break;
             case R.id.btCancel :
                 break;
