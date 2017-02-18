@@ -32,7 +32,7 @@ public class MemberActivity extends AppCompatActivity  implements View.OnClickLi
         btList.setOnClickListener(this);
         btUpdate.setOnClickListener(this);
         btDelete.setOnClickListener(this);
-        service = new MemberServiceImpl();
+        service = new MemberServiceImpl(this.getApplicationContext());
         member = new MemberBean();
         /* 이런 방식도 있음!
         findViewById(R.id.btAdd).setOnClickListener(new View.OnClickListener() {

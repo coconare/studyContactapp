@@ -9,14 +9,17 @@ import android.widget.Toast;
 
 import com.stang.app.contactapp.presentation.SigninActivity;
 import com.stang.app.contactapp.presentation.SignupActivity;
+import com.stang.app.contactapp.service.MemberService;
+import com.stang.app.contactapp.service.impl.MemberServiceImpl;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btSignUp, btSignIn;
-
+    MemberService memberService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        memberService = new MemberServiceImpl(this.getApplicationContext());
         btSignUp = (Button) findViewById(R.id.btSignUp);
         btSignIn = (Button) findViewById(R.id.btSignIn);
         btSignUp.setOnClickListener(this);

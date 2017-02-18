@@ -22,6 +22,7 @@ public class MemberDao extends SQLiteOpenHelper{
      */
     public MemberDao(Context context) {
         super(context, "contactapp.db", null, 1);
+        this.getWritableDatabase();
     }
 
     @Override
