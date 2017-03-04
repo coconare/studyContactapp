@@ -3,6 +3,7 @@ package com.stang.app.contactapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -11,19 +12,32 @@ import com.stang.app.contactapp.presentation.SigninActivity;
 import com.stang.app.contactapp.presentation.SignupActivity;
 import com.stang.app.contactapp.service.MemberService;
 import com.stang.app.contactapp.service.impl.MemberServiceImpl;
+import com.stang.app.contactapp.util.BackPressCloseHandler;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btSignUp, btSignIn;
+    Button btSignUp,btSignIn,btKakaoStory;
     MemberService memberService;
+    View customBar;
+    private BackPressCloseHandler backPressCloseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        customBar = LayoutInflater.from(MainActivity.this).inflate(R.layout.costom_bar, null);
+        actionBar.setCustomView(customBar);
         setContentView(R.layout.activity_main);
         memberService = new MemberServiceImpl(this.getApplicationContext());
         btSignUp = (Button) findViewById(R.id.btSignUp);
         btSignIn = (Button) findViewById(R.id.btSignIn);
+        btKakaoStory = (Button) findViewById(R.id.btKakaoStory);
         btSignUp.setOnClickListener(this);
         btSignIn.setOnClickListener(this);
+        btKakaoStory.setOnClickListener(this);
+        backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     @Override
@@ -53,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  * ';' 하나에 블럭 단위로 메모리를 먹기 때문에, 합친다! 속도!+_+
                  */
                 startActivity(new Intent(MainActivity.this, SigninActivity.class));
+                break;
+            case R.id.btKakaoStory :
+                Toast.makeText(MainActivity.this, "카카오는 안간다 ㅋㅋ", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

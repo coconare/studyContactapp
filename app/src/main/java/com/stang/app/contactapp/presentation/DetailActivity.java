@@ -16,6 +16,8 @@ import com.stang.app.contactapp.R;
 import com.stang.app.contactapp.domain.MemberBean;
 import com.stang.app.contactapp.service.MemberService;
 import com.stang.app.contactapp.service.impl.MemberServiceImpl;
+import com.stang.app.contactapp.util.CommonUtll;
+import com.stang.app.contactapp.util.Phone;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView ivProfile;
@@ -24,6 +26,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     MemberService memberService;
     MemberBean memberBean;
     String id;
+    Phone phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +63,23 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tvPhone.setText(memberBean.getPhone());
         tvAddr.setText(memberBean.getAddr());
         ivProfile.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(this.getPackageName()+":drawable/"+"defult_icon", null, null)));
+        phone = new Phone(this, this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btCall :
+                if(!"".equals(CommonUtll.nvl(memberBean.getPhone()))){
+                    phone.directCall(memberBean.getPhone());
+                }else{
+                    Toast.makeText(DetailActivity.this, "전화번호 없음", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btMessge :
+                Intent smsIntent = Intent(DetailActivity.this, MessageActivity.class);
+                s,smsIntent.putExtra("phone", memberBean.getPhone());
+                startActivity(smsIntent);
                 break;
             case R.id.btMap :
                 break;
